@@ -3,7 +3,7 @@
 
 import mysql.connector
 import config as cfg
-class brokerDAO:
+class BrokerDAO:
     connection=""
     cursor =''
     host=       ''
@@ -33,7 +33,7 @@ class brokerDAO:
          
     def getAll(self):
         cursor = self.getcursor()
-        sql="select * from broker"
+        sql="select * from broker_info"
         cursor.execute(sql)
         results = cursor.fetchall()
         returnArray = []
@@ -45,10 +45,10 @@ class brokerDAO:
         self.closeAll()
         return returnArray
 
-    def findByID(self, id):
+    def findByID(self, ID):
         cursor = self.getcursor()
-        sql="select * from book where id = %s"
-        values = (id,)
+        sql="select * from broker_info where ID = %s"
+        values = (ID,)
 
         cursor.execute(sql, values)
         result = cursor.fetchone()
@@ -56,32 +56,32 @@ class brokerDAO:
         self.closeAll()
         return returnvalue
 
-    def create(self, book):
+    def create(self, broker):
         cursor = self.getcursor()
-        sql="insert into book (title,author, price) values (%s,%s,%s)"
-        values = (book.get("title"), book.get("author"), book.get("price"))
+        sql="insert into broker_info (Name, Address, County, Phone, Web) values (%s,%s,%s,%s,%s)"
+        values = (broker.get("Name"), broker.get("Address"), broker.get("County"), broker.get("Phone"), broker.get("Web"))
         cursor.execute(sql, values)
 
         self.connection.commit()
-        newid = cursor.lastrowid
-        book["id"] = newid
+        newID = cursor.lastrowid
+        broker["ID"] = newID
         self.closeAll()
-        return book
+        return broker
 
 
-    def update(self, id, book):
+    def update(self, ID, broker):
         cursor = self.getcursor()
-        sql="update book set title= %s,author=%s, price=%s  where id = %s"
-        print(f"update book {book}")
-        values = (book.get("title"), book.get("author"), book.get("price"),id)
+        sql="update broker_info set Name= %s, Address=%s, County=%s, Phone=%s, Web=%s where ID = %s"
+        print(f"update broker_info {broker}")
+        values = (broker.get("Name"), broker.get("Address"), broker.get("County"), broker.get("Phone"), broker.get("Web"), ID) #passing in the values to the above sql query
         cursor.execute(sql, values)
         self.connection.commit()
         self.closeAll()
         
-    def delete(self, id):
+    def delete(self, ID):
         cursor = self.getcursor()
-        sql="delete from book where id = %s"
-        values = (id,)
+        sql="delete from broker_info where ID = %s"
+        values = (ID,)
 
         cursor.execute(sql, values)
 
@@ -91,13 +91,13 @@ class brokerDAO:
         print("delete done")
 
     def convertToDictionary(self, resultLine):
-        attkeys=['id','title','author', "price"]
-        book = {}
+        attkeys=['ID', 'Name', 'Address','County', 'Phone', 'Web']
+        broker = {}
         currentkey = 0
         for attrib in resultLine:
-            book[attkeys[currentkey]] = attrib
+            broker[attkeys[currentkey]] = attrib
             currentkey = currentkey + 1 
-        return book
+        return broker
 
         
-bookDAO = BookDAO()''
+brokerDAO = BrokerDAO()
