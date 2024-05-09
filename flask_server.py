@@ -1,6 +1,7 @@
 # flask server
 
-from flask import Flask, jsonify, request, abort
+
+from flask import Flask, jsonify, request, abort, render_template
 from brokerDAO import brokerDAO
 
 #create flask application 
@@ -8,15 +9,47 @@ app = Flask(__name__, static_url_path='', static_folder='.')
 
 @app.route('/')
 def index():
-    return "Hello, World!"
-
+    return """
+    <html>
+    <head>
+        <title>Landing Page</title>
+        <style>
+            /*changing font/formatting */
+            body {
+                background-color: #00FFFF;
+                font-family: Arial, sans-serif;
+                color: #006400; /* Text color */
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                height: 100vh;
+            }
+            .heading {
+                color: #008B8B; /* Heading color */
+            }
+            .content {
+                font-size: 16px;
+                line-height: 1.6;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="heading">Welcome to O'Leary Insurance Ltd</h1>
+        <br/>
+        <div class ="content">
+            <p>To find a broker near you please click <a href="/brokers">here</a></p>
+    </body>
+    </html>    
+    """
 #return all brokers
 
 @app.route('/brokers')
 def getAll():
     #print("in getall")
     results = brokerDAO.getAll()
-    return jsonify(results)
+    sorted_results = sorted(results, key=lambda x: x['ID'])
+    return jsonify(sorted_results)
 
 #return specific broker by ID
 

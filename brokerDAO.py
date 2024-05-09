@@ -33,15 +33,16 @@ class BrokerDAO:
          
     def getAll(self):
         cursor = self.getcursor()
-        sql="select * from broker_info"
+        sql="SELECT * FROM broker_info"
         cursor.execute(sql)
         results = cursor.fetchall()
         returnArray = []
         #print(results)
         for result in results:
-            #print(result)
             returnArray.append(self.convertToDictionary(result))
-        
+        return returnArray
+            
+
         self.closeAll()
         return returnArray
 
