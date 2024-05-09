@@ -1,8 +1,9 @@
-# config files are used to store api keys
+# config files are used to store api keys. This links with a mysql database I created with a number of fake brokers
+# Kevin
 
 mysql = {
     'host':"localhost",
     'user':"root",
-    'password':"",
-    'database':"broker"
+    'password':"root",
+    'database':"brokers"
 }

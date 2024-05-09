@@ -9,3 +9,5 @@ should add in if Statements to control the input for brokers.
 eg
 if(len(phone)<7)
   outputElement.innerText = "too few digits"
+
+Have sepearte file for Ajax code

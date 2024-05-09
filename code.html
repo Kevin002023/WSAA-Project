@@ -8,74 +8,20 @@
   </head>
   <body>
     <h1>List of Brokers</h1>
-        <div>
-      <table class="table " border="1">
+    <div> <button id="createBrokerButton" onclick="CreateBroker()">Create</button></div>
+    <div>
+      <table class="table " if="brokerTable border="1">
         <tr>
           <th>ID</th>
           <th>Name</th>
           <th>Address</th>
-          <th>PostCode/County</th>
+          <th>County</th>
           <th>Phone</th>
-          <th>Email</th>
           <th>Web</th>
           <th>Update</th>
           <th>Delete</th>
         </tr>
-        <tr>
-          <td>01</td>
-          <td>Kevin O'Leary Insurance</td>
-          <td>1234 Fake Street, Dublin</td>
-          <td>South Dublin City</td>
-          <td>012164869</td>
-          <td>koleary@email.com</td>
-          <td>www.koleary.ie</td>
-          <td><button>update</button></td>
-          <td><button>update</button></td>
-        </tr>
-        <tr>
-          <td>01</td>
-          <td>Joe Bloggs Insurance</td>
-          <td>01 Main Street, Leitrim</td>
-          <td>Leitrim</td>
-          <td>0112615614</td>
-          <td>jbloggs@email.com</td>
-          <td>www.bloggs.ie</td>
-          <td><button>update</button></td>
-          <td><button>update</button></td>
-        </tr>
-        <tr>
-          <td>01</td>
-          <td>Insurance Insurance Insurance Ltd</td>
-          <td>45 O Connoll Street, Lahinch</td>
-          <td>Clare</td>
-          <td>017895659</td>
-          <td>insinsins@email.com</td>
-          <td>www.koleary.ie</td>
-          <td><button>update</button></td>
-          <td><button>update</button></td>
-        </tr>
-        <tr>
-          <td>01</td>
-          <td> Relax Imsurance</td>
-          <td>01 Talbot Street, Dublin</td>
-          <td>Dublin City</td>
-          <td>016546529</td>
-          <td>msmith@relax.com</td>
-          <td>www.relax.ie</td>
-          <td><button>update</button></td>
-          <td><button>update</button></td>
-        </tr>
-        <tr>
-          <td>01</td>
-          <td> Motor Ins Ltd</td>
-          <td>Made Up Address, Swords</td>
-          <td>North Dublin</td>
-          <td>016225529</td>
-          <td>bdunleavy@motor.com</td>
-          <td>www.motorins.ie</td>
-          <td><button>update</button></td>
-          <td><button>update</button></td>
-        </tr>
+        
       </table>
       
     </div>
@@ -88,10 +34,6 @@
 
       <form>
         <div class="form-group">
-        ID <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="000" name="ID"/><br/>
-        Title<input type="text" class="form-control" name="Title" placeholder="Insert Book Name Here"/><br/>
-        Author<input type="text" class="form-control" name="Author" placeholder="Insert Author Here"/><br/>
-        Price<input type="text" class="form-control" name="price"placeholder="000"/><br/>
         Pick your County<select name="County", placeholder= "County">
           <option value="Antrim">Antrim</option>
           <option value="Armagh">Armagh</option>
@@ -109,7 +51,134 @@
         </select><br/>
         </div>
 
+        <div id='createUpdateForm' style="display: none">
+          <h2><span id="createLabel">Create a</span> <span id="updateLabel">update</span> Broker</h2>
+          <input type="hidden" name="id"/>
+          Name <input type="text" name="name" /><br/>
+          Address <input type="text" name="address"/> <br/>
+          County <input type="text" name="county"/> <br/>
+          Phone <input type="number" name="phone"/> <br/>
+          Web <input type="text" name="web"/> <br/>
+          <span><button id="doCreateButton" onclick="doCreate()">Create</button></span>
+          <span><button id="doUpdateButton" onclick="doUpdate()">Update</button></span>
+        </div>
 
+  <body>
+  
+  <script>
+    function CreateBroker(){
+      document.getElementById('createBrokerButton').style.display="none"
+      document.getElementById('brokerTable').style.display="none"
+      document.getElementById('createUpdateForm').style.display="block"
+  
+      document.getElementById('createLabel').style.display="inline"
+      document.getElementById('updateLabel').style.display="none"
+  
+      document.getElementById('doCreateButton').style.display="block"
+      document.getElementById('doUpdateButton').style.display="none"
+  
+      }
+    
+    #hides update form and diplays table
+    function showViewAll(){
+      document.getElementById('createBrokerButton').style.display="block"
+      document.getElementById('brokerTable').style.display="block"
+      document.getElementById('createUpdateForm').style.display="none"
+      }
+    
+    function showUpdate(buttonElement){
+      var rowElement = buttonElement.parentNode.parentNode //find the row from the button
+      var broker = getBrokerFromRow(rowElement) //get the curretn values from the row
+      populateFormWithBroker(broker) // display current values in form
+
+      document.getElementById('createBrokerButton').style.display="none"
+      document.getElementById('brokerTable').style.display="none"
+      document.getElementById('createUpdateForm').style.display="block"
+  
+      document.getElementById('createLabel').style.display="none"
+      document.getElementById('updateLabel').style.display="inline"
+  
+      document.getElementById('doCreateButton').style.display="none"
+      document.getElementById('doUpdateButton').style.display="block
+
+      
+    }
+      
+    function doCreate(){
+      var form = document.getElementById('createUpdateForm')
+
+      var broker = {}
+       
+      broker.name = form.querySelector('input[name="name"]').value
+      broker.address = form.querySelector('input[name="address"]').value
+      broker.county = form.querySelector('input[name="county"]').value
+      broker.phone = form.querySelector('input[name="phone"]').value
+      broker.web = form.querySelector('input[name="web"]').value
+      console.log(JSON.stringify(broker))
+      createBookAjax(broker)
+
+    }  
+    function doUpdate(){
+      var broker = getBrokerFromForm();
+      var rowElement = document.getElementById(broker.id);
+      updateBrokerAjax(broker);
+      setBrokerInRow(rowElement,broker);
+       
+        clearForm();
+        showViewAll();
+
+    }
+    function doDelete(r){
+        var tableElement = document.getElementById('brokerTable');
+        var rowElement = r.parentNode.parentNode;
+        var index = rowElement.rowIndex;
+        deleteBrokerAjax(rowElement.getAttribute("id"));
+        tableElement.deleteRow(index);
+    }   
+
+    function addBrokerToTable(broker){
+        var tableElement = document.getElementById('brokerTable')
+        var rowElement = tableElement.insertRow(-1)
+        rowElement.setAttribute('id',broker.id)
+        var cell1 = rowElement.insertCell(0);
+        cell1.innerHTML = broker.id
+        var cell2 = rowElement.insertCell(1);
+        cell2.innerHTML = broker.name
+        var cell3 = rowElement.insertCell(2);
+        cell3.innerHTML = broker.address
+        var cell4 = rowElement.insertCell(3);
+        cell4.innerHTML = broker.county
+        var cell5 = rowElement.insertCell(4);
+        cell5.innerHTML = broker.phone
+        var cell6 = rowElement.insertCell(5);
+        cell6.innerHTML = broker.web
+        var cell6 = rowElement.insertCell(5);
+        cell7.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
+        var cell6 = rowElement.insertCell(5);
+        cell7.innerHTML = '<button onclick=doDelete(this)>delete</button>'
+
+    }
+
+    function clearForm(){
+        var form = document.getElementById('createUpdateForm')
+
+        form.querySelector('input[name="name"]').value=''
+        form.querySelector('input[name="address"]').value=''
+        form.querySelector('input[name="county"]').value=''
+        form.querySelector('input[name="phone"]').value=''
+        form.querySelector('input[name="web"]').value=''
+    }
+
+    //probably dont need this one
+    function getBrokerFromRow(rowElement){
+        var car ={}
+        broker.id  = rowElement.getAttribute('id')
+        broker.name = rowElement.cells[1].firstChild.textContent
+        broker.address = rowElement.cells[2].firstChild.textContent
+        broker.county = rowElement.cells[3].firstChild.textContent
+        broker.phone = parseInt(rowElement.cells[4].firstChild.textContent,10)
+        return book
+    }
         /* Dropdown Button */
 .dropbtn {
   background-color: #04AA6D;
