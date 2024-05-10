@@ -65,11 +65,11 @@ def create():
         abort(400)
     # other checking 
     broker = {
-        "Name": request.json['Name'],
-        "Address": request.json['Address'],
-        "County": request.json['County'],
-        "Phone": request.json['Phone'],
-        "Web": request.json['Web'],
+        "Name": request.json['name'],
+        "Address": request.json['address'],
+        "County": request.json['county'],
+        "Phone": request.json['phone'],
+        "Web": request.json['web'],
     }
     addedbroker = brokerDAO.create(broker)
     

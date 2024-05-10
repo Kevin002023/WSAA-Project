@@ -40,7 +40,7 @@ class BrokerDAO:
         #print(results)
         for result in results:
             returnArray.append(self.convertToDictionary(result))
-        return returnArray
+        #return returnArray
             
 
         self.closeAll()
