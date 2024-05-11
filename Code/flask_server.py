@@ -38,7 +38,7 @@ def index():
         <h1 class="heading">Welcome to O'Leary Insurance Ltd</h1>
         <br/>
         <div class ="content">
-            <p>To find a broker near you please click <a href="/brokers">here</a></p>
+            <p>To find a broker near you please click <a href="/code.html">here</a></p>
     </body>
     </html>    
     """
@@ -65,11 +65,11 @@ def create():
         abort(400)
     # other checking 
     broker = {
-        "Name": request.json['name'],
-        "Address": request.json['address'],
-        "County": request.json['county'],
-        "Phone": request.json['phone'],
-        "Web": request.json['web'],
+        "Name": request.json['Name'],
+        "Address": request.json['Address'],
+        "County": request.json['County'],
+        "Phone": request.json['Phone'],
+        "Web": request.json['Web'],
     }
     addedbroker = brokerDAO.create(broker)
     

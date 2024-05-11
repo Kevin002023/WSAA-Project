@@ -1,4 +1,20 @@
-#Web Services and Application
+## Web Services and Application Project
+
+# Objective
+To create a Web application in Flask that uses a RESTful API and is linked to a Database. 
+
+# PythonAnywhere. 
+
+This application is hosted on Pythonanywhere at the following url;
+
+'''
+https://koleary24.pythonanywhere.com/
+'''
+# Introduction
+
+I currently work for an Motor Insurance Company in the Irish Market. We do not have a direct sales arm so all of our policies are distributed through a network of insurance brokers. When a potential customer enquires about a policy we direct them to a suitable broker.
+
+I thought it would be of value to design a rudimentary web application that would allow a customer to see a complete list of brokers that we deal with and also to find a broker that is near them. 
 
 # use bootstrap to make web application look nice
 https://getbootstrap.com/docs/4.0/components/forms/
