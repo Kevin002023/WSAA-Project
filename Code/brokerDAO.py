@@ -99,6 +99,18 @@ class BrokerDAO:
             broker[attkeys[currentkey]] = attrib
             currentkey = currentkey + 1 
         return broker
+    
+    def findByCounty(self, county):
+        cursor = self.getcursor()
+        sql="SELECT * FROM broker_info"
+            "Where County == %s"
+        values = (County,)
+
+        cursor.execute(sql, values)
+        result = cursor.fetchall()
+        returnvalue = self.convertToDictionary(result)
+        self.closeAll()
+        return returnvalue
 
         
 brokerDAO = BrokerDAO()

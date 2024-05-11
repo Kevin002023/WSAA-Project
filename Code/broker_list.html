@@ -157,9 +157,9 @@
     }  
     function doUpdate(){
       var broker = getBrokerFromForm();
-      console.log("testing doUpdate", broker)
+      //console.log("testing doUpdate", broker)
       var rowElement = document.getElementById(broker.ID);
-      console.log("testing doUpdate", rowElement)
+      //console.log("testing doUpdate", rowElement)
       updateBrokerAjax(broker);
       setBrokerInRow(rowElement,broker);
        
