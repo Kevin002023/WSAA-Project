@@ -95,7 +95,7 @@ class BrokerDAO:
     
     def findByCounty(self, county):
         cursor = self.getcursor()
-        sql="SELECT * FROM broker_info Where County = '%s'"
+        sql="SELECT * FROM broker_info Where County = %s"
         values = (county,)
 
         cursor.execute(sql, values)
@@ -104,7 +104,7 @@ class BrokerDAO:
         print(results)
         for result in results:
             returnArray.append(self.convertToDictionary(result))
-        #return returnArray
+        return returnArray
     
     def convertToDictionary(self, resultLine):
         attkeys=['ID', 'Name', 'Address','County', 'Phone', 'Web']

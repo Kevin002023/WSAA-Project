@@ -112,13 +112,13 @@ def delete(id):
 
 @app.route('/find_my_broker')
 def findBroker():
-    county= request.args.get('userCounty')
+    county= request.args.get('county')
     localBroker = brokerDAO.findByCounty(county)
 
     if localBroker is None:
         return jsonify({"error": "No brokers found for the specifed county."}), 404
-    #sorted_localBroker = sorted(localBroker, key=lambda x: x['ID'])
-    return jsonify(localBroker)
+    sorted_localBroker = sorted(localBroker, key=lambda x: x['ID'])
+    return jsonify(sorted_localBroker)
 
 if __name__ == '__main__' :
     app.run(debug= True)

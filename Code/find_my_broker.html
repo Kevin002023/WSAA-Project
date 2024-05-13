@@ -36,8 +36,6 @@
           <th>County</th>
           <th>Phone</th>
           <th>Web</th>
-          <th>Update</th>
-          <th>Delete</th>
         </tr>
         
       </table>
@@ -133,15 +131,15 @@
 
     function getBrokerAjax(userCounty){
         $.ajax({
-            "url": "/find_my_broker?county=" + userCounty, // pass the county parameter through the ajax query
+            "url": "/find_my_broker", // pass the county parameter through the ajax query
             "method":"GET",
-            "data":"",
+            "data":{county: userCounty},
             "dataType": "JSON",
             "success":function(result){
                 console.log("broker data" + result);
-                for (broker of result){
+                result.forEach(function(broker) {
                   addBrokerToTable(broker);
-                }
+                });
                 
             },
             "error":function(xhr,status,error){
