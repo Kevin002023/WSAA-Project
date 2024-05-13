@@ -90,14 +90,21 @@
 
   <script>
     function findBroker(){
+      // console.log("testing findBroker")
       document.getElementById('heading').style.display="block"
       document.getElementById('findbroker').style.display="none"
       document.getElementById('brokerTable').style.display="block"
       document.getElementById('dropdown').style.display="none"
+
+      var userCounty =document.getElementById('county').value
+      console.log(userCounty) //testing its working
+
+      getBrokerAjax(userCounty);   
     }
     
     function addBrokerToTable(broker){
       console.log("adding broker to table:", broker) //table wasnt populating correctly. needed to check what this was producing
+      
       var tableElement = document.getElementById('brokerTable');
       var rowElement = tableElement.insertRow(-1);
       console.log("testing addBrokerToTable", rowElement)
@@ -121,10 +128,27 @@
       var cell6 = rowElement.insertCell(5);
       cell6.innerHTML = broker.Web
       
-      var cell7 = rowElement.insertCell(6);
-      cell7.innerHTML = '<button onclick="showUpdate(this)">Update</button>'
-      
-      var cell8 = rowElement.insertCell(7);
-      cell8.innerHTML = '<button onclick=doDelete(this)>delete</button>'
-      </script>
+
+    }
+
+    function getBrokerAjax(userCounty){
+        $.ajax({
+            "url": "/find_my_broker?county=" + userCounty, // pass the county parameter through the ajax query
+            "method":"GET",
+            "data":"",
+            "dataType": "JSON",
+            "success":function(result){
+                console.log("broker data" + result);
+                for (broker of result){
+                  addBrokerToTable(broker);
+                }
+                
+            },
+            "error":function(xhr,status,error){
+                console.log("error: "+status+" msg:"+error);
+            }
+        });
+
+    } 
+    </script>
 

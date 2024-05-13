@@ -38,7 +38,8 @@ def index():
         <h1 class="heading">Welcome to O'Leary Insurance Ltd</h1>
         <br/>
         <div class ="content">
-            <p>To find a broker near you please click <a href="/code.html">here</a></p>
+            <p>To see a complete list of brokers distributing our product please click <a href="/broker_list.html">here</a></p>
+            <p>Alternatively you can find a broker near you <a href="/find_my_broker.html">here</a></p> 
     </body>
     </html>    
     """
@@ -109,6 +110,15 @@ def delete(id):
     brokerDAO.delete(id)
     return jsonify({"done":True})
 
+@app.route('/find_my_broker')
+def findBroker():
+    county= request.args.get('userCounty')
+    localBroker = brokerDAO.findByCounty(county)
+
+    if localBroker is None:
+        return jsonify({"error": "No brokers found for the specifed county."}), 404
+    #sorted_localBroker = sorted(localBroker, key=lambda x: x['ID'])
+    return jsonify(localBroker)
 
 if __name__ == '__main__' :
     app.run(debug= True)

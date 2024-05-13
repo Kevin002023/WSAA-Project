@@ -40,7 +40,7 @@ class BrokerDAO:
         #print(results)
         for result in results:
             returnArray.append(self.convertToDictionary(result))
-        #return returnArray
+        return returnArray
             
 
         self.closeAll()
@@ -91,6 +91,21 @@ class BrokerDAO:
         
         print("delete done")
 
+    
+    
+    def findByCounty(self, county):
+        cursor = self.getcursor()
+        sql="SELECT * FROM broker_info Where County = '%s'"
+        values = (county,)
+
+        cursor.execute(sql, values)
+        results = cursor.fetchall()
+        returnArray = []
+        print(results)
+        for result in results:
+            returnArray.append(self.convertToDictionary(result))
+        #return returnArray
+    
     def convertToDictionary(self, resultLine):
         attkeys=['ID', 'Name', 'Address','County', 'Phone', 'Web']
         broker = {}
@@ -99,18 +114,6 @@ class BrokerDAO:
             broker[attkeys[currentkey]] = attrib
             currentkey = currentkey + 1 
         return broker
-    
-    def findByCounty(self, county):
-        cursor = self.getcursor()
-        sql="SELECT * FROM broker_info"
-            "Where County == %s"
-        values = (County,)
-
-        cursor.execute(sql, values)
-        result = cursor.fetchall()
-        returnvalue = self.convertToDictionary(result)
-        self.closeAll()
-        return returnvalue
 
         
 brokerDAO = BrokerDAO()
