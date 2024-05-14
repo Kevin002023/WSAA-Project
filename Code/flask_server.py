@@ -12,7 +12,7 @@ def index():
     return """
     <html>
     <head>
-        <title>Landing Page</title>
+        <title>O'Leary Insurance</title>
         <style>
             /*changing font/formatting */
             body {
@@ -27,9 +27,11 @@ def index():
             }
             .heading {
                 color: #008B8B; /* Heading color */
+                font-size: 35px;
+                line-height: 2;
             }
             .content {
-                font-size: 16px;
+                font-size: 20px;
                 line-height: 1.6;
             }
         </style>
@@ -40,6 +42,7 @@ def index():
         <div class ="content">
             <p>To see a complete list of brokers distributing our product please click <a href="/broker_list.html">here</a></p>
             <p>Alternatively you can find a broker near you <a href="/find_my_broker.html">here</a></p> 
+        </div>
     </body>
     </html>    
     """
