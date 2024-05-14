@@ -22,10 +22,9 @@ To create a Web application in Flask that uses a RESTful API and is linked to a 
 
 This application is hosted on Pythonanywhere at the following url;
 
-'''
-https://koleary24.pythonanywhere.com/
-
-'''
+>
+>
+> https://koleary24.pythonanywhere.com/
 
 # Introduction
 
